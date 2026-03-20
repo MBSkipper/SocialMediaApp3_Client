@@ -9,6 +9,12 @@ function AddUser({ fetchUser }) {
   const [age, setAge] = useState('');
   const API_URL = import.meta.env.VITE_API_URL
 
+  function reset() {
+    setName('');
+    setEmail('');
+    setAge('');
+  } 
+
   async function addUser() {
     try {
       const newUser = { 
@@ -20,6 +26,7 @@ function AddUser({ fetchUser }) {
       const res = await axios.post(`${API_URL}/users`, newUser );
       alert(res.data.message);
       fetchUser();
+      reset();
     } catch (error) {
       console.error('Error while creating users:', error);
     }
