@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 
-function AddUser() {
+function AddUser({ fetchUser }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [age, setAge] = useState('');
@@ -19,6 +19,7 @@ function AddUser() {
 
       const res = await axios.post(`${API_URL}/users`, newUser );
       alert(res.data.message);
+      fetchUser();
     } catch (error) {
       console.error('Error while creating users:', error);
     }

@@ -1,24 +1,9 @@
-import { useState, useEffect } from 'react';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
-import axios from 'axios';  
 
-function Users() {
-  const [users, setUsers] = useState([]);
+function Users({ users }) {
+  
   const API_URL = import.meta.env.VITE_API_URL
-
-  useEffect(() => {
-    fetchUser();
-  }, []);
-
-  async function fetchUser() {
-    try {
-      const res = await axios.get(`${API_URL}/users`);
-      setUsers(res.data.data);
-    } catch (error) {
-      console.error('Error while fetching users:', error);
-    }
-  }
 
   return (
     <>
