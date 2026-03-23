@@ -1,13 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 
-function AddUser({ fetchUser, editMode }) {
+function AddUser({ fetchUser, editMode, editUser }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [age, setAge] = useState('');
   const API_URL = import.meta.env.VITE_API_URL
+
+  useEffect(() => {
+    if(editUser) {
+      setName(editUser.name)
+      setAge(editUser.age)
+    }
+  }, [editUser])
+
 
   function reset() {
     setName('');
@@ -31,6 +39,24 @@ function AddUser({ fetchUser, editMode }) {
       console.error('Error while creating users:', error);
     }
   }
+  /*******UPDATE START*/
+  async function updateUser() {
+    try {
+      const newUser = { 
+        name, 
+        age 
+      }
+
+      const res = await axios.patch(`${API_URL}/users/${editUser._id}`, newUser );
+      alert(res.data.message);
+      reset();
+      fetchUser();
+    } catch (error) {
+      alert('Error while updating user');
+      console.error('Error while updating users:', error);
+    }
+  }
+  /*******UPDATE END*/
 
   return (
     <div className='mt-5'>
@@ -45,7 +71,6 @@ function AddUser({ fetchUser, editMode }) {
             value={name} onChange={(e) => setName(e.target.value)}  
           />
         </Form.Group>
-        
         {!editMode && (
           <Form.Group className="mb-3" >
             <Form.Label>Email address</Form.Label>
@@ -62,8 +87,10 @@ function AddUser({ fetchUser, editMode }) {
           />
         </Form.Group>
 
-        <Button variant="dark" type="button" onClick={addUser}>
-          {!editMode ? 'Add' : 'Update'} User
+        <Button variant="dark" type="button" 
+          onClick={ () => !editMode ? addUser(): updateUser()}
+        >
+          { !editMode ? 'Add' : 'Update' }
         </Button>
       </Form>
     </div>

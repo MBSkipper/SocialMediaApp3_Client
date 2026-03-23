@@ -10,12 +10,17 @@ import AddUser from './components/AddUser';
 
 function App() {
     const API_URL = import.meta.env.VITE_API_URL
-    const [editMode, setEditMode] = useState(false);
     const [users, setUsers] = useState([]);
+    const [editMode, setEditMode] = useState(false);
+    const[editUser, setEditUser] = useState (null)
 
     useEffect(() => {
     fetchUser();
   }, []);
+
+    useEffect(() => {
+        setEditMode(Boolean(editUser))
+    }, [editUser])
 
   async function fetchUser() {
     try {
@@ -28,8 +33,11 @@ function App() {
     
   return (
     <Container className="mt-1">
-      <Users users={users} />
-      <AddUser fetchUser={fetchUser} editMode={editMode} />
+      <Users users={users} setEditUser={setEditUser} />
+      <AddUser 
+        fetchUser={fetchUser} 
+        editMode={editMode} 
+        editUser={editUser}/>
     </Container>
   )
 }

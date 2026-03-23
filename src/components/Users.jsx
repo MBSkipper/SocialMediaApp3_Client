@@ -1,7 +1,7 @@
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 
-function Users({ users }) {
+function Users({ users, setEditUser}) {
   
   const API_URL = import.meta.env.VITE_API_URL
 
@@ -19,8 +19,9 @@ function Users({ users }) {
               {user.name} | {user.email} | {user.age}
             </span>
             <div>
-              <Button variant="light" size="sm" className="ms-1">
-                🖊️
+              <Button variant="light" size="sm" className="ms-1"
+              onClick={() => setEditUser(user)}
+              >🖊️
               </Button>
               <Button variant="danger" size="sm" className="ms-1">
                 🗑️
