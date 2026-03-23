@@ -25,8 +25,8 @@ function AddUser({ fetchUser }) {
 
       const res = await axios.post(`${API_URL}/users`, newUser );
       alert(res.data.message);
-      fetchUser();
       reset();
+      fetchUser();
     } catch (error) {
       console.error('Error while creating users:', error);
     }
