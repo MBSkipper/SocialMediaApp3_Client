@@ -22,6 +22,12 @@ function App() {
         setEditMode(Boolean(editUser))
     }, [editUser])
 
+    function resetToNormalMode () {
+      setEditMode(false)
+      setEditUser(null)
+    }
+
+  /******FETCH USERS****** */  
   async function fetchUser() {
     try {
       const res = await axios.get(`${API_URL}/users`);
@@ -30,14 +36,34 @@ function App() {
       console.error('Error while fetching users:', error);
     }
   }
+
+  /******DELETE USERS****** */
+  async function deleteUser(userId) {
+    try {
+      const res = await axios.delete(`${API_URL}/users/${userId}`);
+      alert(res.data.message);
+      fetchUser()
+    } catch (error) {
+      alert('Error while deleting user');
+      console.error('Error while deleting user:', error);
+    }
+  }
+
     
   return (
     <Container className="mt-1">
-      <Users users={users} setEditUser={setEditUser} />
+      <Users 
+        users={users} 
+        setEditUser={setEditUser}
+        deleteUser={deleteUser} 
+      />
+      
       <AddUser 
         fetchUser={fetchUser} 
         editMode={editMode} 
-        editUser={editUser}/>
+        editUser={editUser}
+        resetToNormalMode={resetToNormalMode}
+      />
     </Container>
   )
 }

@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 
-function AddUser({ fetchUser, editMode, editUser }) {
+function AddUser({ fetchUser, editMode, editUser, resetToNormalMode }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [age, setAge] = useState('');
@@ -39,7 +39,8 @@ function AddUser({ fetchUser, editMode, editUser }) {
       console.error('Error while creating users:', error);
     }
   }
-  /*******UPDATE START*/
+
+  /*******UPDATE **********/
   async function updateUser() {
     try {
       const newUser = { 
@@ -49,14 +50,17 @@ function AddUser({ fetchUser, editMode, editUser }) {
 
       const res = await axios.patch(`${API_URL}/users/${editUser._id}`, newUser );
       alert(res.data.message);
-      reset();
-      fetchUser();
+      reset()
+      fetchUser()
+      resetToNormalMode()
     } catch (error) {
       alert('Error while updating user');
       console.error('Error while updating users:', error);
     }
   }
-  /*******UPDATE END*/
+  /*******UPDATE END*******/
+
+  
 
   return (
     <div className='mt-5'>

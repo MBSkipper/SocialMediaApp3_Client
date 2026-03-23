@@ -1,9 +1,9 @@
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
 
-function Users({ users, setEditUser}) {
+function Users({ users, setEditUser, deleteUser}) {
   
-  const API_URL = import.meta.env.VITE_API_URL
+  //const API_URL = import.meta.env.VITE_API_URL   //REMOVE??
 
   return (
     <>
@@ -23,8 +23,8 @@ function Users({ users, setEditUser}) {
               onClick={() => setEditUser(user)}
               >🖊️
               </Button>
-              <Button variant="danger" size="sm" className="ms-1">
-                🗑️
+              <Button variant="danger" size="sm" className="ms-1" onClick={() => deleteUser(user._id)}
+              > 🗑️
               </Button>
             </div>
           </ListGroup.Item>
