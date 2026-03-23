@@ -10,7 +10,7 @@ import AddUser from './components/AddUser';
 
 function App() {
     const API_URL = import.meta.env.VITE_API_URL
-    const [editMode, setEditMode] = useState(true);
+    const [editMode, setEditMode] = useState(false);
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
