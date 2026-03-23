@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
 
-function AddUser({ fetchUser }) {
+function AddUser({ fetchUser, editMode }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [age, setAge] = useState('');
@@ -34,10 +34,10 @@ function AddUser({ fetchUser }) {
 
   return (
     <div className='mt-5'>
-      <h1 className='display-6'>Add User</h1>
+      <h1 className='display-6'>
+        {!editMode ? 'Add' : 'Edit'} User
+      </h1>
       <Form className='mt-5'>
-
-    
 
         <Form.Group className="mb-3" >
           <Form.Label>Name</Form.Label>
@@ -45,13 +45,15 @@ function AddUser({ fetchUser }) {
             value={name} onChange={(e) => setName(e.target.value)}  
           />
         </Form.Group>
-
-        <Form.Group className="mb-3" >
-          <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" 
-            value={email} onChange={(e) => setEmail(e.target.value)}  
-          />
-        </Form.Group>
+        
+        {!editMode && (
+          <Form.Group className="mb-3" >
+            <Form.Label>Email address</Form.Label>
+            <Form.Control type="email" placeholder="Enter email" 
+              value={email} onChange={(e) => setEmail(e.target.value)}  
+            />
+          </Form.Group>
+        )}
 
         <Form.Group className="mb-3">
           <Form.Label>Age</Form.Label>
@@ -61,7 +63,7 @@ function AddUser({ fetchUser }) {
         </Form.Group>
 
         <Button variant="dark" type="button" onClick={addUser}>
-          Add
+          {!editMode ? 'Add' : 'Update'} User
         </Button>
       </Form>
     </div>

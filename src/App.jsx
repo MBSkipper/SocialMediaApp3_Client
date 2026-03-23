@@ -10,6 +10,7 @@ import AddUser from './components/AddUser';
 
 function App() {
     const API_URL = import.meta.env.VITE_API_URL
+    const [editMode, setEditMode] = useState(true);
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
@@ -28,7 +29,7 @@ function App() {
   return (
     <Container className="mt-1">
       <Users users={users} />
-      <AddUser fetchUser={fetchUser} />
+      <AddUser fetchUser={fetchUser} editMode={editMode} />
     </Container>
   )
 }
